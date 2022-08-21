@@ -15,8 +15,6 @@ The project has been created with:
 
 Libraries:
 
-- Numpy 1.20.1
-
 - Matplotlib 3.3.4
 
 ## Plots Examples
