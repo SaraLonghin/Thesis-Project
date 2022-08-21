@@ -1,19 +1,10 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
+#The tool replicates the "plotnet" function of the NeuralNetTools R package.
+#As basis for plotting nodes and connections and find right positioning it has been used the code at https://gist.github.com/craffel/2d727968c3aaebd10359
 
-import numpy as np
 import matplotlib.pyplot as plt
-from sklearn.neural_network import MLPClassifier
-from scipy.sparse import csr_matrix
-
 
 def draw_neural_net(layer_sizes, weights, color='lightblue', color_pos_weights='black', color_neg_weights='grey', x_names=None, y_names=None, node_text=False, epoch=None, pruned=False, transparency=0.5, fontsize=20, fontsize_node=15, figsize=(50, 50), save_file=None):
     '''
-    Draw a neural network cartoon using matplotilb. https://gist.github.com/craffel/2d727968c3aaebd10359
-    
-    :usage:
-        >>> fig = plt.figure(figsize=(12, 12))
-        >>> draw_neural_net(fig.gca(), .1, .9, .1, .9, [4, 7, 2])
         
 ************************************* 
     Originally required parameters: *
@@ -31,8 +22,6 @@ def draw_neural_net(layer_sizes, weights, color='lightblue', color_pos_weights='
         - layer_sizes : list of int
             List of layer sizes, including input and output dimensionality
 
-     usage:
-         >>> draw_neural_net([20,15,20],weights_list)
 ********************
    Parameters now: *
 ********************
@@ -69,8 +58,10 @@ def draw_neural_net(layer_sizes, weights, color='lightblue', color_pos_weights='
          - figsize has to be adjusted depending on network size.
          
        - save_file (optional) --> save in the specified name and format.
-       
-                     
+********   
+Usage: *
+******** 
+ >>> draw_neural_net([20,15,20],weights_list)            
    '''
 
     left = 0.1
@@ -84,7 +75,11 @@ def draw_neural_net(layer_sizes, weights, color='lightblue', color_pos_weights='
     fig = plt.figure(figsize=figsize)
     ax = fig.gca()
     ax.axis('off')
-    plt.title('Epoch' + str(epoch), fontsize=50)
+    
+    if epoch != None:
+        plt.title('Epoch' + str(epoch), fontsize=50)
+    else:
+        None
 
     def do_linewidth(x):
         if x > 0.0:
@@ -173,7 +168,7 @@ def draw_neural_net(layer_sizes, weights, color='lightblue', color_pos_weights='
                         color = 'lightblue'
 
                         line_pruned = plt.Line2D([n*h_spacing + left, (n + 1)*h_spacing + left],
-                                                 [layer_top_a - m*(v_spacing + 0.0001), layer_top_b - o*(v_spacing + 0.0001)], linestyle=linestyle, linewidth=0.5, c=color, clip_on=False, alpha=transparency)
+                                                 [layer_top_a - m*(v_spacing + 0.0001), layer_top_b - o*(v_spacing + 0.0001)], linestyle=linestyle, linewidth=1.5, c=color, clip_on=False)
                         ax.add_artist(line_pruned)
 
                     else:
